@@ -1,6 +1,6 @@
 {
-    "name": "angularjs-template",
-    "description": "A starter project for AngularJS based on John Papa's style guide",
+    "name": "binary tree using angularjs",
+    "description": "binary tree using angularjs",
     "license": "MIT",
     "keywords": [
         "AngularJS",
@@ -8,13 +8,13 @@
         "template",
         "angularjs-template",
         "seed",
-        "johnpapa",
+        "sunil",
         "styleguide",
         "node",
         "express"
     ],
     "authors": [
-        "Michal Pietrzak"
+        "Sunil Kumar Singh"
     ],
     "homepage": "https://github.com/pamigomp/angularjs-template",
     "repository": {
