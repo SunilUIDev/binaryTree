@@ -15,36 +15,15 @@ angular.module('myApp', ['ngMdIcons']).controller('BinaryTreeController', [funct
     }
 
     /**
-  * @name getRandom
-  * @kind function
-  *
-  * @description
-  * to genrate random number
-  */
-    // var getRandom = function getRandom() {
-    //     var randomNumber =  Math.floor(Math.random() * (20)) + 1;
-    //     if (vm.testArray.includes(randomNumber)) {
-    //         return getRandom();
-    //     } else {
-    //         return randomNumber;
-    //     }
-    // };
-    //
-    // vm.generateRandomValue = function generateRandomValue() {
-    //     vm.randomValue = getRandom();
-    //     vm.testArray.push(vm.randomValue);
-    // };
-
-    /**
      * @name addNodes
      * @kind function
      *
      * @description
      * to add a new node
      */
-    vm.addNode = function addNode(dataNode) {
-        vm.addNodes(dataNode);
-    }
+    // vm.addNode = function addNode() {
+    //     vm.addNodes(vm.addNodeValue);
+    // }
 
     /**
   * @name addNodes
@@ -53,8 +32,12 @@ angular.module('myApp', ['ngMdIcons']).controller('BinaryTreeController', [funct
   * @description
   * to add a new node
   */
-    vm.addNodes = function addNodes(dataNode) {
-        var val = dataNode;
+    vm.addNode = function addNode() {
+        var val = parseInt(vm.addNodeValue);
+        if (!vm.tree[0].nodeValue) {
+          vm.tree[0].nodeValue = val;
+          return;
+        }
         if (val <= vm.tree[0].nodeValue) {
             if (!vm.tree[0].nodesL.length) {
                 vm.tree[0].nodesL = [];
