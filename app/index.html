@@ -1,47 +1,53 @@
 <!DOCTYPE html>
-<html>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-material-icons/0.7.1/angular-material-icons.min.js"></script>
-<link rel="stylesheet" href="styles/styles.css">
-<script src="scripts/controllers/binaryTreeCtrl.js"></script>
+<html lang="en" ng-app="myApp">
+<head ng-cloak>
+    <title>Binary Tree@</title>
+    <h1>Binary Tree Demo</h1>
+    <link rel="stylesheet" href="styles/styles.css">
+</head>
 <body ng-app="myApp" ng-controller="TreeController">
-  <h1>Binary Tree Demo</h1>
-  <form ng-submit="searchNode()">
-  <div class="col-sm-3">
-    <input class="form-control" type="text" placeholder="Enter Node Value to Search" ng-model="(searchNodeValue)"></input>
-  </div>
-  <div>
-    <button type="submit" class="btn btn-primary" ng-disabled="!searchNodeValue.length">Search</button>
-    <div><label>{{searchNodePath}}</label></div>
-  </div>
-</form>
-	<div class="container ">
-		<div class="tree" >
-		<ul>
-			<li ng-repeat="data in tree" ng-include="'tree_nodes_renderer.html'"></li>
-		</ul>
-		</div>
-	</div>
-	<script type="text/ng-template"  id="tree_nodes_renderer.html">
-    <div style="background-color: lightblue;">
-  		<button type="button" class="btn btn-success" ng-click="addNodes(data)"  ng-disabled="(data.nodesR.length && data.nodesL.length)">
-        <ng-md-icon icon="add_circle" style="fill: white" size="20" ng-if="data.nodeValue"></ng-md-icon>
-		    <ng-md-icon icon="add_circle" style="fill: orange" size="30" ng-if="!data.nodeValue"></ng-md-icon>
-      </button>
-      <div ng-if="data.nodeValue"><span style="font-size: large;" ><b>{{data.nodeValue}}</b></span></div>
-      <button type="button" class="btn btn-danger" ng-click="deleteAllNodes($parent, data)" ng-show="data.nodeValue">
-        <ng-md-icon icon="delete" style="fill: white" size="20"></ng-md-icon>
-      </button>
-    </div>
-		<ul>
-    	<li ng-repeat="data in data.nodesL" ng-include="'tree_nodes_renderer.html'"></li>
-			<li ng-repeat="data in data.nodesR" ng-include="'tree_nodes_renderer.html'"></li>
-		</ul>
-	</script>
+  <!--External libs added here  -->
+    <script src="bower_components/angular/angular.min.js"></script>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="bower_components/underscore/underscore-min.js"></script>
+    <script src="bower_components/angular-material-icons/angular-material-icons.min.js"></script>
 
+    <!--  Binary tree controllers -->
+    <script src="scripts/controllers/binaryTreeCtrl.js"></script>
+
+    <form ng-submit="searchNode()">
+        <div class="col-sm-3">
+          <input class="form-control" type="text" placeholder="Enter Node Value to Search" ng-model="(searchNodeValue)"></input>
+        </div>
+        <div>
+          <button type="submit" class="btn btn-primary" ng-disabled="!searchNodeValue.length">Search</button>
+          <div><label>{{searchNodePath}}</label></div>
+        </div>
+    </form>
+    <div class="container ">
+      <div class="tree" >
+      <ul>
+        <li ng-repeat="data in tree" ng-include="'tree_nodes_renderer_id'"></li>
+      </ul>
+      </div>
+    </div>
+    <script type="text/ng-template"  id="tree_nodes_renderer_id">
+        <div style="background-color: lightblue;">
+            <button type="button" class="btn btn-success" ng-click="addNodes(data)"  ng-disabled="(data.nodesR.length && data.nodesL.length)">
+                <ng-md-icon icon="add_circle" style="fill: white" size="20" ng-if="data.nodeValue"></ng-md-icon>
+                <ng-md-icon icon="add_circle" style="fill: orange" size="30" ng-if="!data.nodeValue"></ng-md-icon>
+            </button>
+            <div ng-if="data.nodeValue"><span style="font-size: large;" ><b>{{data.nodeValue}}</b></span></div>
+            <button type="button" class="btn btn-danger" ng-click="deleteAllNodes($parent, data)" ng-show="data.nodeValue">
+                <ng-md-icon icon="delete" style="fill: white" size="20"></ng-md-icon>
+            </button>
+        </div>
+        <ul>
+            <li ng-repeat="data in data.nodesL" ng-include="'tree_nodes_renderer_id'"></li>
+            <li ng-repeat="data in data.nodesR" ng-include="'tree_nodes_renderer_id'"></li>
+        </ul>
+    </script>
 </body>
 </html>
