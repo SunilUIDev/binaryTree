@@ -21,19 +21,30 @@ angular.module('myApp', ['ngMdIcons']).controller('BinaryTreeController', [funct
   * @description
   * to genrate random number
   */
-    var getRandom = function getRandom() {
-        var randomNumber =  Math.floor(Math.random() * (20)) + 1;
-        if (vm.testArray.includes(randomNumber)) {
-            return getRandom();
-        } else {
-            return randomNumber;
-        }
-    };
+    // var getRandom = function getRandom() {
+    //     var randomNumber =  Math.floor(Math.random() * (20)) + 1;
+    //     if (vm.testArray.includes(randomNumber)) {
+    //         return getRandom();
+    //     } else {
+    //         return randomNumber;
+    //     }
+    // };
+    //
+    // vm.generateRandomValue = function generateRandomValue() {
+    //     vm.randomValue = getRandom();
+    //     vm.testArray.push(vm.randomValue);
+    // };
 
-    vm.generateRandomValue = function generateRandomValue() {
-        vm.randomValue = getRandom();
-        vm.testArray.push(vm.randomValue);
-    };
+    /**
+     * @name addNodes
+     * @kind function
+     *
+     * @description
+     * to add a new node
+     */
+    vm.addNode = function addNode(dataNode) {
+        vm.addNodes(dataNode);
+    }
 
     /**
   * @name addNodes
@@ -42,20 +53,21 @@ angular.module('myApp', ['ngMdIcons']).controller('BinaryTreeController', [funct
   * @description
   * to add a new node
   */
-    vm.addNodes = function addNodes(data) {
-        vm.generateRandomValue();
-        var val = vm.randomValue;
-        if (val <= data.nodeValue) {
-            if (!data.nodesL.length) {
-                data.nodesL = [];
-                data.nodesL.push({nodeValue: val, nodesR: [], nodesL: []});
+    vm.addNodes = function addNodes(dataNode) {
+        var val = dataNode;
+        if (val <= vm.tree[0].nodeValue) {
+            if (!vm.tree[0].nodesL.length) {
+                vm.tree[0].nodesL = [];
+                vm.tree[0].nodesL.push({nodeValue: val, nodesR: [], nodesL: []});
+                // vm.tree[0].nodeValue = vm.tree[0].nodesL;
             } else {
                 alert('can not add -->' + val);
             }
         } else {
-            if (!data.nodesR.length) {
-                data.nodesR = [];
-                data.nodesR.push({nodeValue: val, nodesR: [], nodesL: []});
+            if (!vm.tree[0].nodesR.length) {
+                vm.tree[0].nodesR = [];
+                vm.tree[0].nodesR.push({nodeValue: val, nodesR: [], nodesL: []});
+                // vm.tree[0].nodeValue = vm.tree[0].nodesR;
             } else {
                 alert('can not add --> ' + val);
             }
