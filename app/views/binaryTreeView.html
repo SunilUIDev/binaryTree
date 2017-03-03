@@ -8,15 +8,17 @@
         </div>
     </div>
 
-    <form ng-submit="BT.searchNode()" style="margin-top: 20px;">
+    <div style="margin-top: 20px;">
         <div class="col-sm-3">
           <input class="form-control" type="text" placeholder="Enter Node Value to Search" ng-model="BT.searchNodeValue"></input>
         </div>
         <div>
-          <button type="submit" class="btn btn-primary" ng-disabled="!BT.searchNodeValue.length">Search</button>
-          <div><label>{{BT.searchNodePath}}</label></div>
+          <button type="submit" class="btn btn-primary" ng-disabled="!BT.searchNodeValue.length" ng-click="BT.searchNode()">Search</button>
         </div>
-    </form>
+        <div  class="col-sm-3">
+          <h3>BFS Path = {{BT.searchNodePath}} </h3>
+        </div>
+    </div>
     <div class="tree" >
       <ul>
         <li ng-repeat="data in BT.tree" ng-include="'tree_nodes_renderer_id'"></li>

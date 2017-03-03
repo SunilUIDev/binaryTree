@@ -17,7 +17,6 @@ angular.module('myApp', ['ngMdIcons'])
       * Initialize the controller when it is called
       */
         function init() {
-            vm.testArray = [];
             vm.tree = [new Node({nodeValue : ''})];
         }
 
@@ -58,6 +57,7 @@ angular.module('myApp', ['ngMdIcons'])
         vm.addNode = function addNode() {
             pointerNodeObj = vm.tree[0];
             newNodeValue = parseInt(vm.addNodeValue);
+            vm.addNodeValue = '';
             if (!vm.tree[0].nodeValue) {
                 vm.tree[0].nodeValue = newNodeValue;
                 return;
@@ -118,6 +118,7 @@ angular.module('myApp', ['ngMdIcons'])
             }
             nodeVal = bfsQueueObj.items[0];
             pointerNode = getNodeObjByNodeVal(vm.tree[0]);
+            if (!pointerNode) { return; }
             processBFS(pointerNode);
         };
 
@@ -146,8 +147,9 @@ angular.module('myApp', ['ngMdIcons'])
                 nodeVal = vm.tree[0].nodeValue;
                 var nodeObj =  vm.tree[0];
                 bfsSearch(nodeObj);
-                vm.searchNodePath = bfsList.slice(0, bfsList.indexOf(parseInt(vm.searchNodeValue)) + 1);
-                // console.log(bfsList.slice(0, bfsList.indexOf(parseInt(vm.searchNodeValue)) + 1));
+                var slicedBfsPath = bfsList.slice(0, bfsList.indexOf(parseInt(vm.searchNodeValue)) + 1);
+                vm.searchNodePath = !slicedBfsPath.length ? 'No element found for given input' : slicedBfsPath;
+                vm.searchNodeValue = '';
             }
         };
 
@@ -159,8 +161,11 @@ angular.module('myApp', ['ngMdIcons'])
       * to delete a new node
       */
         vm.deleteNode = function deleteNode(prData, data) {
-            var parentData;
-            var i = 0;
+            var parentData, i = 0;
+            if (data.nodeValue === vm.tree[0].nodeValue) {
+                vm.tree = [new Node({nodeValue : ''})];
+                return;
+            }
             while (i !== -1) {
                 prData = prData.$parent;
                 if (prData.data) {
