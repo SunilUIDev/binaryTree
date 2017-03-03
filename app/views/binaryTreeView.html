@@ -8,12 +8,12 @@
         </div>
     </div>
 
-    <form ng-submit="searchNode()" style="margin-top: 20px;">
+    <form ng-submit="BT.searchNode()" style="margin-top: 20px;">
         <div class="col-sm-3">
-          <input class="form-control" type="text" placeholder="Enter Node Value to Search" ng-model="searchNodeValue"></input>
+          <input class="form-control" type="text" placeholder="Enter Node Value to Search" ng-model="BT.searchNodeValue"></input>
         </div>
         <div>
-          <button type="submit" class="btn btn-primary" ng-disabled="!searchNodeValue.length">Search</button>
+          <button type="submit" class="btn btn-primary" ng-disabled="!BT.searchNodeValue.length">Search</button>
           <div><label>{{BT.searchNodePath}}</label></div>
         </div>
     </form>
@@ -24,13 +24,8 @@
     </div>
     <script type="text/ng-template"  id="tree_nodes_renderer_id">
     <div style="background-color: lightblue;">
-        <!-- <button type="button" class="btn btn-success" ng-click="BT.addNodes(data)"  ng-disabled="(data.nodesR.length && data.nodesL.length)">
-            <ng-md-icon icon="add_circle" style="fill: white" size="20" ng-if="data.nodeValue"></ng-md-icon>
-            <ng-md-icon icon="add_circle" style="fill: orange" size="30" ng-if="!data.nodeValue"></ng-md-icon>
-        </button> -->
-        <ng-md-icon icon="add_circle" style="fill: white" size="20"></ng-md-icon>
         <div ng-if="data.nodeValue"><span style="font-size: large;" ><b>{{data.nodeValue}}</b></span></div>
-        <button type="button" class="btn btn-danger" ng-click="BT.deleteAllNodes($parent, data)" ng-show="data.nodeValue">
+        <button type="button" class="btn btn-danger" ng-click="BT.deleteNode($parent, data)" ng-show="data.nodeValue">
             <ng-md-icon icon="delete" style="fill: white" size="20"></ng-md-icon>
         </button>
     </div>
