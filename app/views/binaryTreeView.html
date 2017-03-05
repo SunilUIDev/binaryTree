@@ -4,7 +4,7 @@
           <input class="form-control" type="text" placeholder="Add Node Value" ng-model="BT.addNodeValue"></input>
         </div>
         <div>
-          <button type="button" class="btn btn-success" ng-click="BT.addNode()">Add</button>
+          <button type="button" class="btn btn-success" ng-click="BT.addNode()" ng-disabled="!BT.addNodeValue">Add</button>
         </div>
     </div>
 
@@ -16,7 +16,7 @@
           <button type="submit" class="btn btn-primary" ng-disabled="!BT.searchNodeValue.length" ng-click="BT.searchNode()">Search</button>
         </div>
         <div  class="col-sm-3">
-          <h3>BFS Path = {{BT.searchNodePath}} </h3>
+          <h3>BFS Path = {{BT.searchNodePath}}</h3>
         </div>
     </div>
     <div class="tree" >
@@ -26,7 +26,9 @@
     </div>
     <script type="text/ng-template"  id="tree_nodes_renderer_id">
     <div style="background-color: lightblue;">
-        <div ng-if="data.nodeValue"><span style="font-size: large;" ><b>{{data.nodeValue}}</b></span></div>
+        <div ng-if="data.nodeValue">
+            <span style="font-size: large;" ><b>{{data.nodeValue}}</b></span>
+        </div>
         <button type="button" class="btn btn-danger" ng-click="BT.deleteNode($parent, data)" ng-show="data.nodeValue">
             <ng-md-icon icon="delete" style="fill: white" size="20"></ng-md-icon>
         </button>

@@ -154,32 +154,93 @@ angular.module('myApp', ['ngMdIcons'])
         };
 
         /**
-      * @name deleteNode
-      * @kind function
-      *
-      * @description
-      * to delete a new node
-      */
+     * @name deleteNode
+     * @kind function
+     *
+     * @description
+     * to delete a new node
+     */
         vm.deleteNode = function deleteNode(prData, data) {
-            var parentData, i = 0;
-            if (data.nodeValue === vm.tree[0].nodeValue) {
+            //  case 0: if deleted node is a root node
+            if (data.nodeValue === vm.tree[0].nodeValue && (!vm.tree[0].nodesR.length && !vm.tree[0].nodesL.length)) {
                 vm.tree = [new Node({nodeValue : ''})];
                 return;
             }
+
+            var parentData, i = 0;
             while (i !== -1) {
                 prData = prData.$parent;
-                if (prData.data) {
+                if (prData && prData.data) {
                     parentData = prData.data;
+                    i = -1;
+                } else {
+                    parentData = vm.tree[0];
                     i = -1;
                 }
             }
+            var deletedNode = [];
+            if (parentData.nodeValue === data.nodeValue) {
+                deletedNode = vm.tree;
+            }
+            else if (parentData.nodesR.length && (parentData.nodesR[0].nodeValue == data.nodeValue)) {
+                deletedNode = parentData.nodesR;
+            } else {
+                deletedNode = parentData.nodesL;
+            }
 
-            if (parentData.nodesR.length && (parentData.nodesR[0].nodeValue == data.nodeValue)) {
-                parentData.nodesR = [];
+            //case 1: if deleted node is a leaf node
+            if (!deletedNode[0].nodesL.length && !deletedNode[0].nodesR.length) {
+                if (parentData.nodesR.length && (parentData.nodesR[0].nodeValue == deletedNode[0].nodeValue)) {
+                    parentData.nodesR = [];
+                    return
+                }
+                parentData.nodesL = [];
+            }
+
+            //case 2: if deleted node has only left child
+            if (deletedNode[0].nodesL.length && !deletedNode[0].nodesR.length) {
+                deletedNode[0] = deletedNode[0].nodesL[0];
                 return;
             }
-            parentData.nodesL = [];
+
+            //case 3: if deleted node has only right child
+            if (!deletedNode[0].nodesL.length && deletedNode[0].nodesR.length) {
+                deletedNode[0] = deletedNode[0].nodesR[0];
+                return;
+            }
+
+            //case 4: if deleted node has both left and right child
+            if (deletedNode[0].nodesL.length && deletedNode[0].nodesR.length) {
+                highNodeParent = '';
+                var highNodeValue = getHighestValueNode(deletedNode[0].nodesL);
+                deletedNode[0].nodeValue = highNodeValue;
+                if (!highNodeParent) {
+                    var rightNode = deletedNode[0].nodesR;
+                    deletedNode[0] = deletedNode[0].nodesL[0];
+                    deletedNode[0].nodesR = rightNode;
+                    return;
+                }
+
+                if (highNodeParent.nodesR.length) {
+                    highNodeParent.nodesR = [];
+                } else {
+                    deletedNode[0].nodesL = highNodeParent.nodesL;
+                }
+            }
         };
+
+        var highNodeValue, highNodeParent = [];
+        function getHighestValueNode(nodeObj) {
+            if (nodeObj[0].nodesR.length && nodeObj[0].nodesL.length) {
+                highNodeParent = nodeObj[0];
+                var newNodeObj = nodeObj[0].nodesR[0].nodeValue > nodeObj[0].nodesL[0].nodeValue ? nodeObj[0].nodesR : nodeObj[0].nodesL ;
+                getHighestValueNode(newNodeObj);
+            } else {
+                highNodeValue = nodeObj[0].nodeValue;
+            }
+            return highNodeValue;
+        };
+
         init();
     },
 ]);
