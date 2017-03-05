@@ -1,4 +1,5 @@
 'use strict';
+
 angular.module('myApp', ['ngMdIcons'])
         .controller('BinaryTreeController', [function () {
         var vm = this,
@@ -7,7 +8,9 @@ angular.module('myApp', ['ngMdIcons'])
             nodeVal,
             bfsQueueObj,
             bfsList = [],
-            selectedNodeObj;
+            selectedNodeObj,
+            highNodeValue,
+            highNodeParent;
 
         /**
       * @name init
@@ -20,6 +23,13 @@ angular.module('myApp', ['ngMdIcons'])
             vm.tree = [new Node({nodeValue : ''})];
         }
 
+        /**
+      * @name Node
+      * @kind function
+      *
+      * @description
+      * Initialize the Node Object
+      */
         function Node(param) {
             this.nodeValue = param.nodeValue;
             this.nodesR = [];
@@ -37,7 +47,6 @@ angular.module('myApp', ['ngMdIcons'])
         var Queue = function() {
             this.items = [];
         };
-        // var queueObj = new Queue();
         Queue.prototype.enqueue = function(obj) {
             this.items.push(obj);
         };
@@ -54,6 +63,13 @@ angular.module('myApp', ['ngMdIcons'])
             this.items = [];
         };
 
+        /**
+      * @name addNode
+      * @kind function
+      *
+      * @description
+      * to taake input from user
+      */
         vm.addNode = function addNode() {
             pointerNodeObj = vm.tree[0];
             newNodeValue = parseInt(vm.addNodeValue);
@@ -73,6 +89,13 @@ angular.module('myApp', ['ngMdIcons'])
             }
         };
 
+        /**
+      * @name insertNode
+      * @kind function
+      *
+      * @description
+      * to insert node into the tree
+      */
         var insertNode = function(nodeObj) {
             if (newNodeValue < pointerNodeObj.nodeValue) {
                 if (!pointerNodeObj.nodesL.length) {
@@ -91,6 +114,7 @@ angular.module('myApp', ['ngMdIcons'])
             }
         };
 
+        //Breadth first search alogirthm for searching a node.
         var bfsSearch = function(searchNode) {
             bfsQueueObj.enqueue(searchNode.nodeValue);
             processBFS(searchNode);
@@ -139,6 +163,14 @@ angular.module('myApp', ['ngMdIcons'])
             }
             return selectedNodeObj;
         };
+
+        /**
+      * @name searchNode
+      * @kind function
+      *
+      * @description
+      * to search a  node into the tree based on differet cases / scenarios using breath first search algorithm
+      */
         vm.searchNode = function() {
             if (Object.keys(vm.tree[0]).length) {
                 bfsQueueObj = new Queue();
@@ -158,7 +190,7 @@ angular.module('myApp', ['ngMdIcons'])
      * @kind function
      *
      * @description
-     * to delete a new node
+     * to delete a node
      */
         vm.deleteNode = function deleteNode(prData, data) {
             //  case 0: if deleted node is a root node
@@ -229,7 +261,7 @@ angular.module('myApp', ['ngMdIcons'])
             }
         };
 
-        var highNodeValue, highNodeParent = [];
+        // to get the node with heighest weight
         function getHighestValueNode(nodeObj) {
             if (nodeObj[0].nodesR.length && nodeObj[0].nodesL.length) {
                 highNodeParent = nodeObj[0];
