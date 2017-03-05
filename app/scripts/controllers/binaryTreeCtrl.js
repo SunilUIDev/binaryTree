@@ -9,8 +9,8 @@ angular.module('myApp', ['ngMdIcons'])
             bfsQueueObj,
             bfsList = [],
             selectedNodeObj,
-            highNodeValue,
-            highNodeParent;
+            highestNodeValue,
+            highestNodeParent;
 
         /**
       * @name init
@@ -169,7 +169,7 @@ angular.module('myApp', ['ngMdIcons'])
       * @kind function
       *
       * @description
-      * to search a  node into the tree based on differet cases / scenarios using breath first search algorithm
+      * to search a  node into the tree
       */
         vm.searchNode = function() {
             if (Object.keys(vm.tree[0]).length) {
@@ -243,20 +243,20 @@ angular.module('myApp', ['ngMdIcons'])
 
             //case 4: if deleted node has both left and right child
             if (deletedNode[0].nodesL.length && deletedNode[0].nodesR.length) {
-                highNodeParent = '';
-                var highNodeValue = getHighestValueNode(deletedNode[0].nodesL);
-                deletedNode[0].nodeValue = highNodeValue;
-                if (!highNodeParent) {
+                highestNodeParent = '';
+                highestNodeValue = getHighestValueNode(deletedNode[0].nodesL);
+                deletedNode[0].nodeValue = highestNodeValue;
+                if (!highestNodeParent) {
                     var rightNode = deletedNode[0].nodesR;
                     deletedNode[0] = deletedNode[0].nodesL[0];
                     deletedNode[0].nodesR = rightNode;
                     return;
                 }
 
-                if (highNodeParent.nodesR.length) {
-                    highNodeParent.nodesR = [];
+                if (highestNodeParent.nodesR.length) {
+                    highestNodeParent.nodesR = [];
                 } else {
-                    deletedNode[0].nodesL = highNodeParent.nodesL;
+                    deletedNode[0].nodesL = highestNodeParent.nodesL;
                 }
             }
         };
@@ -264,13 +264,13 @@ angular.module('myApp', ['ngMdIcons'])
         // to get the node with heighest weight
         function getHighestValueNode(nodeObj) {
             if (nodeObj[0].nodesR.length && nodeObj[0].nodesL.length) {
-                highNodeParent = nodeObj[0];
+                highestNodeParent = nodeObj[0];
                 var newNodeObj = nodeObj[0].nodesR[0].nodeValue > nodeObj[0].nodesL[0].nodeValue ? nodeObj[0].nodesR : nodeObj[0].nodesL ;
                 getHighestValueNode(newNodeObj);
             } else {
-                highNodeValue = nodeObj[0].nodeValue;
+                highestNodeValue = nodeObj[0].nodeValue;
             }
-            return highNodeValue;
+            return highestNodeValue;
         };
 
         init();
