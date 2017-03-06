@@ -4,7 +4,7 @@ angular.module('myApp', ['ngMdIcons'])
         .controller('BinaryTreeController', [function () {
         var vm = this,
             newNodeValue,
-            pointerNodeObj,
+            currentNodeObj,
             nodeVal,
             bfsQueueObj,
             bfsList = [],
@@ -71,7 +71,7 @@ angular.module('myApp', ['ngMdIcons'])
       * to taake input from user
       */
         vm.addNode = function addNode() {
-            pointerNodeObj = vm.tree[0];
+            currentNodeObj = vm.tree[0];
             newNodeValue = parseInt(vm.addNodeValue);
             vm.addNodeValue = '';
             if (!vm.tree[0].nodeValue) {
@@ -81,7 +81,7 @@ angular.module('myApp', ['ngMdIcons'])
 
             var nodeObj = new Node({nodeValue : newNodeValue});
             while (newNodeValue !== null) {
-                if (pointerNodeObj.nodeValue === newNodeValue) {
+                if (currentNodeObj.nodeValue === newNodeValue) {
                     alert('Value already exist in the node');
                     return;
                 }
@@ -97,19 +97,19 @@ angular.module('myApp', ['ngMdIcons'])
       * to insert node into the tree
       */
         var insertNode = function(nodeObj) {
-            if (newNodeValue < pointerNodeObj.nodeValue) {
-                if (!pointerNodeObj.nodesL.length) {
-                    pointerNodeObj.insertLeft(nodeObj);
+            if (newNodeValue < currentNodeObj.nodeValue) {
+                if (!currentNodeObj.nodesL.length) {
+                    currentNodeObj.insertLeft(nodeObj);
                     newNodeValue = null;
                 } else {
-                    pointerNodeObj = pointerNodeObj.nodesL[0];
+                    currentNodeObj = currentNodeObj.nodesL[0];
                 }
-            } else if (newNodeValue > pointerNodeObj.nodeValue) {
-                if (!pointerNodeObj.nodesR.length) {
-                    pointerNodeObj.insertRight(nodeObj);
+            } else if (newNodeValue > currentNodeObj.nodeValue) {
+                if (!currentNodeObj.nodesR.length) {
+                    currentNodeObj.insertRight(nodeObj);
                     newNodeValue = null;
                 } else {
-                    pointerNodeObj = pointerNodeObj.nodesR[0];
+                    currentNodeObj = currentNodeObj.nodesR[0];
                 }
             }
         };
@@ -120,19 +120,19 @@ angular.module('myApp', ['ngMdIcons'])
             processBFS(searchNode);
         };
         var processBFS = function(nodeObj) {
-            var pointerNode = nodeObj;
-            if (pointerNode.nodesL[0] && pointerNode.nodesR[0]) {
-                if (pointerNode.nodesL[0].nodeValue < pointerNode.nodesR[0].nodeValue) {
-                    bfsQueueObj.enqueue(pointerNode.nodesL[0].nodeValue);
-                    bfsQueueObj.enqueue(pointerNode.nodesR[0].nodeValue);
-                } else if (pointerNode.nodesL[0].nodeValue > pointerNode.nodesR[0].nodeValue) {
-                    bfsQueueObj.enqueue(pointerNode.nodesR[0].nodeValue);
-                    bfsQueueObj.enqueue(pointerNode.nodesL[0].nodeValue);
+            var currentNode = nodeObj;
+            if (currentNode.nodesL[0] && currentNode.nodesR[0]) {
+                if (currentNode.nodesL[0].nodeValue < currentNode.nodesR[0].nodeValue) {
+                    bfsQueueObj.enqueue(currentNode.nodesL[0].nodeValue);
+                    bfsQueueObj.enqueue(currentNode.nodesR[0].nodeValue);
+                } else if (currentNode.nodesL[0].nodeValue > currentNode.nodesR[0].nodeValue) {
+                    bfsQueueObj.enqueue(currentNode.nodesR[0].nodeValue);
+                    bfsQueueObj.enqueue(currentNode.nodesL[0].nodeValue);
                 }
-            } else if (pointerNode.nodesL[0]) {
-                bfsQueueObj.enqueue(pointerNode.nodesL[0].nodeValue);
-            } else if (pointerNode.nodesR[0]) {
-                bfsQueueObj.enqueue(pointerNode.nodesR[0].nodeValue);
+            } else if (currentNode.nodesL[0]) {
+                bfsQueueObj.enqueue(currentNode.nodesL[0].nodeValue);
+            } else if (currentNode.nodesR[0]) {
+                bfsQueueObj.enqueue(currentNode.nodesR[0].nodeValue);
             }
             if (!bfsQueueObj.items.length) {
                 return;
@@ -141,9 +141,9 @@ angular.module('myApp', ['ngMdIcons'])
                 bfsList.push(bfsQueueObj.dequeue());
             }
             nodeVal = bfsQueueObj.items[0];
-            pointerNode = getNodeObjByNodeVal(vm.tree[0]);
-            if (!pointerNode) { return; }
-            processBFS(pointerNode);
+            currentNode = getNodeObjByNodeVal(vm.tree[0]);
+            if (!currentNode) { return; }
+            processBFS(currentNode);
         };
 
         var getNodeObjByNodeVal = function(obj) {

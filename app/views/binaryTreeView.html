@@ -1,35 +1,63 @@
-
+<div>
+    <div class="col-sm-2">
+        <input
+          class="form-control"
+          type="number"
+          placeholder="Add Node Value(In num.)"
+          ng-model="BT.addNodeValue"
+          >
+        </input>
+    </div>
     <div>
-        <div class="col-sm-2">
-          <input class="form-control" type="text" placeholder="Add Node Value" ng-model="BT.addNodeValue"></input>
-        </div>
-        <div>
-          <button type="button" class="btn btn-success" ng-click="BT.addNode()" ng-disabled="!BT.addNodeValue">Add</button>
-        </div>
+        <button
+          type="button"
+          class="btn btn-success"
+          ng-click="BT.addNode()"
+          ng-disabled="!BT.addNodeValue"
+          > Add
+        </button>
     </div>
-
-    <div style="margin-top: 20px;">
-        <div class="col-sm-3">
-          <input class="form-control" type="text" placeholder="Enter Node Value to Search" ng-model="BT.searchNodeValue"></input>
-        </div>
-        <div>
-          <button type="submit" class="btn btn-primary" ng-disabled="!BT.searchNodeValue.length" ng-click="BT.searchNode()">Search</button>
-        </div>
-        <div  class="col-sm-3">
-          <h3>BFS Path = {{BT.searchNodePath}}</h3>
-        </div>
+</div>
+<div style="margin-top: 20px;">
+    <div class="col-sm-3">
+        <input
+          class="form-control"
+          type="text"
+          placeholder="Enter Node Value to Search"
+          ng-model="BT.searchNodeValue"
+          >
+        </input>
     </div>
-    <div class="tree" >
-      <ul>
+  <div>
+      <button
+        type="submit"
+        class="btn btn-primary"
+        ng-disabled="!BT.searchNodeValue.length"
+        ng-click="BT.searchNode()"
+        > Search
+      </button>
+  </div>
+  <div  class="col-sm-3">
+      <h3>BFS Path = {{BT.searchNodePath}}</h3>
+  </div>
+</div>
+<div class="tree">
+    <ul>
         <li ng-repeat="data in BT.tree" ng-include="'tree_nodes_renderer_id'"></li>
-      </ul>
-    </div>
-    <script type="text/ng-template"  id="tree_nodes_renderer_id">
+    </ul>
+</div>
+<script type="text/ng-template"  id="tree_nodes_renderer_id">
     <div style="background-color: lightblue;">
         <div ng-if="data.nodeValue === 0 ? '0' : data.nodeValue ">
-            <span style="font-size: large;" ><b>{{data.nodeValue === 0 ? '0' : data.nodeValue }}</b></span>
+            <span style="font-size: large;" >
+              <b>{{data.nodeValue === 0 ? '0' : data.nodeValue }}</b>
+            </span>
         </div>
-        <button type="button" class="btn btn-danger" ng-click="BT.deleteNode($parent, data)" ng-show="data.nodeValue === 0 ? '0' : data.nodeValue">
+        <button
+          type="button"
+          class="btn btn-danger"
+          ng-click="BT.deleteNode($parent, data)"
+          ng-show="data.nodeValue === 0 ? '0' : data.nodeValue">
             <ng-md-icon icon="delete" style="fill: white" size="20"></ng-md-icon>
         </button>
     </div>
