@@ -10,7 +10,7 @@ angular.module('myApp')
             return {
                 require: 'ngModel',
                 restrict: 'A',
-                link: function (ctrl) {
+                link: function (scope, element, attr, ctrl) {
                     function inputValue(val) {
                         if (val) {
                             var digits = val.replace(/[^0-9]/g, '');
