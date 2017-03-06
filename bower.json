@@ -1,36 +1,37 @@
 {
-    "name": "binary tree using angularjs",
-    "description": "binary tree using angularjs",
-    "license": "MIT",
-    "keywords": [
-        "AngularJS",
-        "angular",
-        "template",
-        "angularjs-template",
-        "seed",
-        "sunil",
-        "styleguide",
-        "node",
-        "express"
-    ],
-    "authors": [
-        "Sunil Kumar Singh"
-    ],
-    "homepage": "https://github.com/pamigomp/angularjs-template",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/pamigomp/angularjs-template.git"
-    },
-    "ignore": [],
-    "dependencies": {
-        "angular": "^1.5.7",
-        "angular-animate": "^1.5.7",
-        "angular-mocks": "^1.5.7",
-        "angular-ui-router": "^0.3.1",
-        "bootstrap": "^3.3.6",
-        "jquery-ui": "^1.11.4",
-        "underscore" : "^1.8.3",
-        "angular-material-icons" : "^0.7.1"
-    },
-    "private": false
+  "name": "binary tree using angularjs",
+  "description": "binary tree using angularjs",
+  "license": "MIT",
+  "keywords": [
+    "AngularJS",
+    "angular",
+    "template",
+    "angularjs-template",
+    "seed",
+    "sunil",
+    "styleguide",
+    "node",
+    "express"
+  ],
+  "authors": [
+    "Sunil Kumar Singh"
+  ],
+  "homepage": "https://github.com/pamigomp/angularjs-template",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pamigomp/angularjs-template.git"
+  },
+  "ignore": [],
+  "dependencies": {
+    "angular": "^1.5.7",
+    "angular-animate": "^1.5.7",
+    "angular-mocks": "^1.5.7",
+    "angular-ui-router": "^0.3.1",
+    "bootstrap": "^3.3.6",
+    "jquery-ui": "^1.11.4",
+    "underscore": "^1.8.3",
+    "angular-material-icons": "^0.7.1",
+    "angular-modal-service": "^0.11.0"
+  },
+  "private": false
 }

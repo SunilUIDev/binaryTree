@@ -1,7 +1,8 @@
+//Binary Search Tree using Angular JS
 'use strict';
 
-angular.module('myApp', ['ngMdIcons'])
-        .controller('BinaryTreeController', [function () {
+angular.module('myApp', ['ngMdIcons', 'angularModalService'])
+        .controller('BinaryTreeController', ['ModalService', function (ModalService) {
         var vm = this,
             newNodeValue,
             currentNodeObj,
@@ -10,7 +11,7 @@ angular.module('myApp', ['ngMdIcons'])
             bfsList = [],
             selectedNodeObj,
             highestNodeValue,
-            highestNodeParent;
+            highestNodeParent ;
 
         /**
       * @name init
@@ -21,7 +22,23 @@ angular.module('myApp', ['ngMdIcons'])
       */
         function init() {
             vm.tree = [new Node({nodeValue : ''})];
-        }
+        };
+
+        /**
+      * @name showAModal
+      * @kind function
+      *
+      * @description
+      * to show a modal pop up
+      */
+        vm.showAModal  = function() {
+            ModalService.showModal({
+                templateUrl: 'views/confirmModal.html',
+                controller: 'modalController as MC'
+            }).then(function(modal) {
+                // modal.close();
+            });
+        };
 
         /**
       * @name Node
@@ -34,7 +51,7 @@ angular.module('myApp', ['ngMdIcons'])
             this.nodeValue = param.nodeValue;
             this.nodesR = [];
             this.nodesL = [];
-        }
+        };
 
         Node.prototype.insertLeft = function(nodeObj) {
             this.nodesL.push(nodeObj);
@@ -68,7 +85,7 @@ angular.module('myApp', ['ngMdIcons'])
       * @kind function
       *
       * @description
-      * to taake input from user
+      * to take input from user
       */
         vm.addNode = function addNode() {
             currentNodeObj = vm.tree[0];
@@ -82,7 +99,7 @@ angular.module('myApp', ['ngMdIcons'])
             var nodeObj = new Node({nodeValue : newNodeValue});
             while (newNodeValue !== null) {
                 if (currentNodeObj.nodeValue === newNodeValue) {
-                    alert('Value already exist in the node');
+                    vm.showAModal();
                     return;
                 }
                 insertNode(nodeObj);
