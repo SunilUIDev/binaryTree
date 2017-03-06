@@ -61,7 +61,7 @@ angular.module('myApp', ['ngMdIcons', 'angularModalService'])
             this.nodesR.push(nodeObj);
         };
 
-        var Queue = function() {
+        function Queue() {
             this.items = [];
         };
         Queue.prototype.enqueue = function(obj) {
@@ -87,7 +87,7 @@ angular.module('myApp', ['ngMdIcons', 'angularModalService'])
       * @description
       * to take input from user
       */
-        vm.addNode = function addNode() {
+        vm.addNode = function () {
             currentNodeObj = vm.tree[0];
             newNodeValue = parseInt(vm.addNodeValue);
             vm.addNodeValue = '';
@@ -113,7 +113,7 @@ angular.module('myApp', ['ngMdIcons', 'angularModalService'])
       * @description
       * to insert node into the tree
       */
-        var insertNode = function(nodeObj) {
+        function insertNode(nodeObj) {
             if (newNodeValue < currentNodeObj.nodeValue) {
                 if (!currentNodeObj.nodesL.length) {
                     currentNodeObj.insertLeft(nodeObj);
@@ -132,11 +132,11 @@ angular.module('myApp', ['ngMdIcons', 'angularModalService'])
         };
 
         //Breadth first search alogirthm for searching a node.
-        var bfsSearch = function(searchNode) {
+        function bfsSearch(searchNode) {
             bfsQueueObj.enqueue(searchNode.nodeValue);
             processBFS(searchNode);
         };
-        var processBFS = function(nodeObj) {
+        function processBFS(nodeObj) {
             var currentNode = nodeObj;
             if (currentNode.nodesL[0] && currentNode.nodesR[0]) {
                 if (currentNode.nodesL[0].nodeValue < currentNode.nodesR[0].nodeValue) {
@@ -163,7 +163,7 @@ angular.module('myApp', ['ngMdIcons', 'angularModalService'])
             processBFS(currentNode);
         };
 
-        var getNodeObjByNodeVal = function(obj) {
+        function getNodeObjByNodeVal(obj) {
             if (obj && obj.nodesL[0]) {
                 if (obj.nodesL[0].nodeValue === nodeVal) {
                     selectedNodeObj = obj.nodesL[0];
@@ -209,7 +209,7 @@ angular.module('myApp', ['ngMdIcons', 'angularModalService'])
      * @description
      * to delete a node
      */
-        vm.deleteNode = function deleteNode(prData, data) {
+        vm.deleteNode = function(prData, data) {
             //  case 0: if deleted node is a root node
             if (data.nodeValue === vm.tree[0].nodeValue && (!vm.tree[0].nodesR.length && !vm.tree[0].nodesL.length)) {
                 vm.tree = [new Node({nodeValue : ''})];
