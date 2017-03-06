@@ -2,9 +2,11 @@
     <div class="col-sm-2">
         <input
           class="form-control"
-          type="number"
-          placeholder="Add Node Value(In num.)"
+          type="text"
+          placeholder="Add Node Value"
           ng-model="BT.addNodeValue"
+          ngEnter
+          numbers-only
           >
         </input>
     </div>
@@ -13,7 +15,7 @@
           type="button"
           class="btn btn-success"
           ng-click="BT.addNode()"
-          ng-disabled="!BT.addNodeValue"
+          ng-disabled="(!BT.addNodeValue)"
           > Add
         </button>
     </div>
