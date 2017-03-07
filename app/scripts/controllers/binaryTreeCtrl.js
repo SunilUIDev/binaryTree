@@ -131,10 +131,31 @@ angular.module('myApp', ['ngMdIcons', 'angularModalService'])
             }
         };
 
+        /**
+      * @name searchNode
+      * @kind function
+      *
+      * @description
+      * to search a  node into the tree
+      */
+        vm.searchNode = function() {
+            if (Object.keys(vm.tree[0]).length) {
+                bfsQueueObj = new Queue();
+                bfsList = [];
+                bfsQueueObj.empty();
+                nodeVal = vm.tree[0].nodeValue;
+                var nodeObj =  vm.tree[0];
+                bfsSearch(nodeObj);
+                var slicedBfsPath = bfsList.slice(0, bfsList.indexOf(parseInt(vm.searchNodeValue)) + 1);
+                vm.searchNodePath = !slicedBfsPath.length ? 'No element found for given input' : slicedBfsPath;
+                vm.searchNodeValue = '';
+            }
+        };
+
         //Breadth first search alogirthm for searching a node.
-        function bfsSearch(searchNode) {
-            bfsQueueObj.enqueue(searchNode.nodeValue);
-            processBFS(searchNode);
+        function bfsSearch(rootNode) {
+            bfsQueueObj.enqueue(rootNode.nodeValue);
+            processBFS(rootNode);
         };
         function processBFS(nodeObj) {
             var currentNode = nodeObj;
@@ -179,27 +200,6 @@ angular.module('myApp', ['ngMdIcons', 'angularModalService'])
                 }
             }
             return selectedNodeObj;
-        };
-
-        /**
-      * @name searchNode
-      * @kind function
-      *
-      * @description
-      * to search a  node into the tree
-      */
-        vm.searchNode = function() {
-            if (Object.keys(vm.tree[0]).length) {
-                bfsQueueObj = new Queue();
-                bfsList = [];
-                bfsQueueObj.empty();
-                nodeVal = vm.tree[0].nodeValue;
-                var nodeObj =  vm.tree[0];
-                bfsSearch(nodeObj);
-                var slicedBfsPath = bfsList.slice(0, bfsList.indexOf(parseInt(vm.searchNodeValue)) + 1);
-                vm.searchNodePath = !slicedBfsPath.length ? 'No element found for given input' : slicedBfsPath;
-                vm.searchNodeValue = '';
-            }
         };
 
         /**
