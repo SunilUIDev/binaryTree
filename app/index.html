@@ -6,6 +6,9 @@
     <link rel="stylesheet" href="styles/styles.css">
 </head>
 <body ng-controller="BinaryTreeController as BT">
+    <!-- included binary tree view -->
+    <ng-include src="'views/binaryTreeView.html'"></ng-include>
+
     <!--External libs -->
     <script src="bower_components/angular/angular.min.js"></script>
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
@@ -19,9 +22,8 @@
     <script src="scripts/controllers/binaryTreeCtrl.js"></script>
     <script src="scripts/controllers/modalController.js"></script>
 
+    <!-- directives -->
     <script src="scripts/directives/numbersOnly.js"></script>
 
-    <!-- included binary tree view -->
-    <ng-include src="'views/binaryTreeView.html'"></ng-include>
 </body>
 </html>
