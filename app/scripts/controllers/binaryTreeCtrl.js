@@ -22,7 +22,7 @@ angular.module('myApp', ['ngMdIcons', 'angularModalService'])
       */
         function init() {
             vm.tree = [new Node({nodeValue : ''})];
-        };
+        }
 
         /**
       * @name showAModal
@@ -51,7 +51,7 @@ angular.module('myApp', ['ngMdIcons', 'angularModalService'])
             this.nodeValue = param.nodeValue;
             this.nodesR = [];
             this.nodesL = [];
-        };
+        }
 
         Node.prototype.insertLeft = function(nodeObj) {
             this.nodesL.push(nodeObj);
@@ -63,7 +63,7 @@ angular.module('myApp', ['ngMdIcons', 'angularModalService'])
 
         function Queue() {
             this.items = [];
-        };
+        }
         Queue.prototype.enqueue = function(obj) {
             this.items.push(obj);
         };
@@ -129,7 +129,7 @@ angular.module('myApp', ['ngMdIcons', 'angularModalService'])
                     currentNodeObj = currentNodeObj.nodesR[0];
                 }
             }
-        };
+        }
 
         /**
       * @name searchNode
@@ -156,7 +156,7 @@ angular.module('myApp', ['ngMdIcons', 'angularModalService'])
         function bfsSearch(rootNode) {
             bfsQueueObj.enqueue(rootNode.nodeValue);
             processBFS(rootNode);
-        };
+        }
         function processBFS(nodeObj) {
             var currentNode = nodeObj;
             if (currentNode.nodesL[0] && currentNode.nodesR[0]) {
@@ -182,7 +182,7 @@ angular.module('myApp', ['ngMdIcons', 'angularModalService'])
             currentNode = getNodeObjByNodeVal(vm.tree[0]);
             if (!currentNode) { return; }
             processBFS(currentNode);
-        };
+        }
 
         function getNodeObjByNodeVal(obj) {
             if (obj && obj.nodesL[0]) {
@@ -200,7 +200,7 @@ angular.module('myApp', ['ngMdIcons', 'angularModalService'])
                 }
             }
             return selectedNodeObj;
-        };
+        }
 
         /**
      * @name deleteNode
@@ -231,7 +231,7 @@ angular.module('myApp', ['ngMdIcons', 'angularModalService'])
             if (parentData.nodeValue === data.nodeValue) {
                 deletedNode = vm.tree;
             }
-            else if (parentData.nodesR.length && (parentData.nodesR[0].nodeValue == data.nodeValue)) {
+            else if (parentData.nodesR.length && (parentData.nodesR[0].nodeValue === data.nodeValue)) {
                 deletedNode = parentData.nodesR;
             } else {
                 deletedNode = parentData.nodesL;
@@ -239,9 +239,9 @@ angular.module('myApp', ['ngMdIcons', 'angularModalService'])
 
             //case 1: if deleted node is a leaf node
             if (!deletedNode[0].nodesL.length && !deletedNode[0].nodesR.length) {
-                if (parentData.nodesR.length && (parentData.nodesR[0].nodeValue == deletedNode[0].nodeValue)) {
+                if (parentData.nodesR.length && (parentData.nodesR[0].nodeValue === deletedNode[0].nodeValue)) {
                     parentData.nodesR = [];
-                    return
+                    return;
                 }
                 parentData.nodesL = [];
             }
@@ -282,13 +282,14 @@ angular.module('myApp', ['ngMdIcons', 'angularModalService'])
         function getHighestValueNode(nodeObj) {
             if (nodeObj[0].nodesR.length && nodeObj[0].nodesL.length) {
                 highestNodeParent = nodeObj[0];
-                var newNodeObj = nodeObj[0].nodesR[0].nodeValue > nodeObj[0].nodesL[0].nodeValue ? nodeObj[0].nodesR : nodeObj[0].nodesL ;
+                var newNodeObj = nodeObj[0].nodesR[0].nodeValue > nodeObj[0].nodesL[0].nodeValue ?
+                                  nodeObj[0].nodesR : nodeObj[0].nodesL ;
                 getHighestValueNode(newNodeObj);
             } else {
                 highestNodeValue = nodeObj[0].nodeValue;
             }
             return highestNodeValue;
-        };
+        }
 
         init();
     },
